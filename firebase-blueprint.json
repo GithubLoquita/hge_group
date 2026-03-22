@@ -143,6 +143,22 @@
         "status": { "type": "string", "enum": ["new", "reviewed", "contacted"] }
       },
       "required": ["fullName", "email", "phone", "productType", "quantity", "createdAt", "status"]
+    },
+    "LoanApplication": {
+      "title": "Loan Application",
+      "description": "An application for a micro-loan or startup loan.",
+      "type": "object",
+      "properties": {
+        "fullName": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "phone": { "type": "string" },
+        "location": { "type": "string" },
+        "loanAmount": { "type": "number" },
+        "purpose": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "status": { "type": "string", "enum": ["pending", "reviewed", "approved", "rejected"] }
+      },
+      "required": ["fullName", "email", "phone", "location", "loanAmount", "purpose", "createdAt", "status"]
     }
   },
   "firestore": {
@@ -169,6 +185,10 @@
     "/bulk_inquiries/{inquiryId}": {
       "schema": "BulkInquiry",
       "description": "Collection of bulk pricing inquiries."
+    },
+    "/loan_applications/{applicationId}": {
+      "schema": "LoanApplication",
+      "description": "Collection of loan applications."
     }
   }
 }

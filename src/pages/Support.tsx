@@ -10,13 +10,15 @@ import {
   Globe, 
   Calendar,
   Send,
-  Loader2
+  Loader2,
+  ArrowRight
 } from 'lucide-react';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { db, handleFirestoreError, OperationType } from '../firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 export default function Support() {
+  const formRef = useRef<HTMLDivElement>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [formData, setFormData] = useState({
@@ -45,6 +47,15 @@ export default function Support() {
       'Market connection',
       'Flexible repayment'
     ]
+  };
+
+  const scrollToForm = (need: string, type: string) => {
+    setFormData(prev => ({
+      ...prev,
+      supportType: type,
+      specificNeed: need
+    }));
+    formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -138,11 +149,19 @@ export default function Support() {
                   { title: 'Raw Material', icon: Leaf, desc: 'Consistent supply of high-quality sal leaves.' },
                   { title: 'Business Guidance', icon: TrendingUp, desc: 'Mentorship on quality and efficiency.' }
                 ].map((item, i) => (
-                  <div key={i} className="p-6 border border-black/5 rounded-2xl hover:border-green-600 transition-colors group">
+                  <motion.div 
+                    key={i} 
+                    whileHover={{ y: -5 }}
+                    onClick={() => scrollToForm(item.title, 'Production Support')}
+                    className="p-6 border border-black/5 rounded-2xl hover:border-green-600 transition-all group bg-white cursor-pointer shadow-sm hover:shadow-xl hover:shadow-green-600/5"
+                  >
                     <item.icon className="w-8 h-8 text-green-600 mb-4 group-hover:scale-110 transition-transform" />
                     <h4 className="font-bold text-black mb-2">{item.title}</h4>
-                    <p className="text-black/50 text-sm leading-relaxed">{item.desc}</p>
-                  </div>
+                    <p className="text-black/50 text-sm leading-relaxed mb-4">{item.desc}</p>
+                    <div className="flex items-center text-xs font-bold text-green-600 opacity-0 group-hover:opacity-100 transition-opacity">
+                      Apply Now <ArrowRight size={12} className="ml-1" />
+                    </div>
+                  </motion.div>
                 ))}
               </div>
             </motion.div>
@@ -168,11 +187,19 @@ export default function Support() {
                   { title: 'Market Connection', icon: Globe, desc: 'Direct access to national and global buyers.' },
                   { title: 'Flexible Repayment', icon: Calendar, desc: 'Loan terms that match your production cycles.' }
                 ].map((item, i) => (
-                  <div key={i} className="p-6 border border-black/5 rounded-2xl hover:border-black transition-colors group">
+                  <motion.div 
+                    key={i} 
+                    whileHover={{ y: -5 }}
+                    onClick={() => scrollToForm(item.title, 'Enterprise Partner')}
+                    className="p-6 border border-black/5 rounded-2xl hover:border-black transition-all group bg-white cursor-pointer shadow-sm hover:shadow-xl hover:shadow-black/5"
+                  >
                     <item.icon className="w-8 h-8 text-black mb-4 group-hover:scale-110 transition-transform" />
                     <h4 className="font-bold text-black mb-2">{item.title}</h4>
-                    <p className="text-black/50 text-sm leading-relaxed">{item.desc}</p>
-                  </div>
+                    <p className="text-black/50 text-sm leading-relaxed mb-4">{item.desc}</p>
+                    <div className="flex items-center text-xs font-bold text-black opacity-0 group-hover:opacity-100 transition-opacity">
+                      Apply Now <ArrowRight size={12} className="ml-1" />
+                    </div>
+                  </motion.div>
                 ))}
               </div>
             </motion.div>
@@ -181,7 +208,7 @@ export default function Support() {
       </section>
 
       {/* Application Form Section */}
-      <section className="py-24 bg-gray-50">
+      <section className="py-24 bg-gray-50" ref={formRef}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -321,6 +348,187 @@ export default function Support() {
           </motion.div>
         </div>
       </section>
+
+      {/* Loan Application Form Section */}
+      <LoanApplicationForm />
     </div>
+  );
+}
+
+function LoanApplicationForm() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    location: '',
+    loanAmount: '',
+    purpose: ''
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    try {
+      const path = 'loan_applications';
+      await addDoc(collection(db, path), {
+        fullName: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        location: formData.location,
+        loanAmount: Number(formData.loanAmount),
+        purpose: formData.purpose,
+        createdAt: serverTimestamp(),
+        status: 'pending'
+      });
+      setSubmitStatus('success');
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        location: '',
+        loanAmount: '',
+        purpose: ''
+      });
+    } catch (error) {
+      setSubmitStatus('error');
+      handleFirestoreError(error, OperationType.CREATE, 'loan_applications');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  return (
+    <section className="py-24 bg-green-600 text-white">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          className="bg-white p-12 rounded-[2rem] shadow-2xl text-black"
+        >
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold tracking-tighter mb-4">Loan Application Form</h2>
+            <p className="text-black/50">Apply for a micro-loan or startup funding to grow your business.</p>
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-8">
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="space-y-2">
+                <label className="text-xs font-bold uppercase tracking-widest text-black/40">Full Name</label>
+                <input 
+                  type="text" 
+                  name="name"
+                  required
+                  value={formData.name}
+                  onChange={handleChange}
+                  className="w-full border-b border-black/10 py-3 focus:border-green-600 outline-none transition-colors bg-transparent" 
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-xs font-bold uppercase tracking-widest text-black/40">Email Address</label>
+                <input 
+                  type="email" 
+                  name="email"
+                  required
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="w-full border-b border-black/10 py-3 focus:border-green-600 outline-none transition-colors bg-transparent" 
+                />
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="space-y-2">
+                <label className="text-xs font-bold uppercase tracking-widest text-black/40">Phone Number</label>
+                <input 
+                  type="tel" 
+                  name="phone"
+                  required
+                  value={formData.phone}
+                  onChange={handleChange}
+                  className="w-full border-b border-black/10 py-3 focus:border-green-600 outline-none transition-colors bg-transparent" 
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-xs font-bold uppercase tracking-widest text-black/40">Location</label>
+                <input 
+                  type="text" 
+                  name="location"
+                  required
+                  value={formData.location}
+                  onChange={handleChange}
+                  className="w-full border-b border-black/10 py-3 focus:border-green-600 outline-none transition-colors bg-transparent" 
+                />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-xs font-bold uppercase tracking-widest text-black/40">Loan Amount (₹)</label>
+              <input 
+                type="number" 
+                name="loanAmount"
+                required
+                value={formData.loanAmount}
+                onChange={handleChange}
+                className="w-full border-b border-black/10 py-3 focus:border-green-600 outline-none transition-colors bg-transparent" 
+                placeholder="Enter amount in Rupees"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-xs font-bold uppercase tracking-widest text-black/40">Purpose of Loan</label>
+              <textarea 
+                name="purpose"
+                rows={4} 
+                required
+                value={formData.purpose}
+                onChange={handleChange}
+                className="w-full border border-black/10 p-4 focus:border-green-600 outline-none transition-colors resize-none bg-transparent rounded-xl"
+                placeholder="Describe how you will use the funds..."
+              ></textarea>
+            </div>
+
+            <button 
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full bg-green-600 text-white py-5 rounded-xl font-bold hover:bg-black transition-all flex items-center justify-center gap-2 shadow-xl shadow-green-600/20"
+            >
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                  Processing...
+                </>
+              ) : (
+                <>
+                  <Coins className="w-5 h-5" />
+                  Apply for Loan
+                </>
+              )}
+            </button>
+            
+            {submitStatus === 'success' && (
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="p-4 bg-green-50 border border-green-100 rounded-xl text-green-700 text-center font-bold"
+              >
+                Loan application submitted! We will review your request shortly.
+              </motion.div>
+            )}
+            {submitStatus === 'error' && (
+              <p className="text-red-600 text-sm font-bold text-center">Submission failed. Please try again.</p>
+            )}
+          </form>
+        </motion.div>
+      </div>
+    </section>
   );
 }

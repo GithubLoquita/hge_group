@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function Hero() {
   return (
@@ -27,13 +28,25 @@ export default function Hero() {
               We are building a scalable ecosystem where rural producers and global customers connect through innovation.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="bg-black text-white px-8 py-4 text-sm font-semibold rounded-none hover:bg-black/90 transition-all flex items-center justify-center group">
+              <Link 
+                to="/products"
+                className="bg-black text-white px-8 py-4 text-sm font-semibold rounded-none hover:bg-black/90 transition-all flex items-center justify-center group"
+              >
                 View Eco-Products
                 <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
-              <button className="border border-black/10 text-black px-8 py-4 text-sm font-semibold rounded-none hover:bg-black/5 transition-all flex items-center justify-center">
+              </Link>
+              <Link 
+                to="/services"
+                className="border border-black/10 text-black px-8 py-4 text-sm font-semibold rounded-none hover:bg-black/5 transition-all flex items-center justify-center"
+              >
                 Our Impact
-              </button>
+              </Link>
+              <Link 
+                to="/support"
+                className="bg-green-600 text-white px-8 py-4 text-sm font-semibold rounded-none hover:bg-green-700 transition-all flex items-center justify-center"
+              >
+                Get Started
+              </Link>
             </div>
           </motion.div>
         </div>

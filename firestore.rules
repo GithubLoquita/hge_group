@@ -146,9 +146,27 @@ service cloud.firestore {
              (!('type' in data) || (data.type is string && data.type == 'bulk_pricing'));
     }
 
+    function isValidLoanApplication(data) {
+      return hasRequiredFields(['fullName', 'email', 'phone', 'location', 'loanAmount', 'purpose', 'createdAt', 'status']) &&
+             hasOnlyAllowedFields(['fullName', 'email', 'phone', 'location', 'loanAmount', 'purpose', 'createdAt', 'status']) &&
+             data.fullName is string && data.fullName.size() <= 100 &&
+             isValidEmail(data.email) &&
+             data.phone is string && data.phone.size() <= 20 &&
+             data.location is string && data.location.size() <= 200 &&
+             data.loanAmount is number && data.loanAmount > 0 &&
+             data.purpose is string && data.purpose.size() <= 1000 &&
+             data.createdAt is timestamp &&
+             data.status in ['pending', 'reviewed', 'approved', 'rejected'];
+    }
+
     // ===============================================================
     // Rules
     // ===============================================================
+
+    match /loan_applications/{applicationId} {
+      allow create: if isValidLoanApplication(request.resource.data) && request.resource.data.status == 'pending';
+      allow read, update, delete: if isAdmin();
+    }
 
     match /support_applications/{applicationId} {
       allow create: if isValidSupportApplication(request.resource.data) && request.resource.data.status == 'pending';

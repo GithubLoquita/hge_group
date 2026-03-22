@@ -4,24 +4,25 @@ import WhyChoose from '../components/WhyChoose';
 import Testimonials from '../components/Testimonials';
 import { motion } from 'framer-motion';
 import { ArrowRight, ExternalLink } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const products = [
   {
     title: 'Sal Leaf Plates',
     category: 'Eco-Dining',
-    image: 'https://images.unsplash.com/photo-1610348725531-843dff563e2c?q=80&w=1000&auto=format&fit=crop',
+    image: 'https://res.cloudinary.com/drh369n9m/image/upload/v1774207807/WhatsApp_Image_2026-03-23_at_12.22.16_AM_fvm3sx.jpg',
     description: 'Traditional round plates handcrafted from premium sal leaves. 100% natural and biodegradable.'
   },
   {
     title: 'Sal Leaf Dona (Bowl)',
     category: 'Eco-Packaging',
-    image: 'https://images.unsplash.com/photo-1591871937573-74dbba515c4c?q=80&w=1000&auto=format&fit=crop',
+    image: 'https://res.cloudinary.com/drh369n9m/image/upload/v1774207807/WhatsApp_Image_2026-03-23_at_12.22.16_AM_fvm3sx.jpg',
     description: 'Sturdy, heat-resistant bowls made from sustainably sourced forest leaves.'
   },
   {
     title: 'Custom Eco-Sets',
     category: 'Events',
-    image: 'https://images.unsplash.com/photo-1467453274507-643d38a0ca27?q=80&w=1000&auto=format&fit=crop',
+    image: 'https://res.cloudinary.com/drh369n9m/image/upload/v1774207807/WhatsApp_Image_2026-03-23_at_12.22.16_AM_fvm3sx.jpg',
     description: 'Complete eco-friendly dining sets for weddings, festivals, and corporate events.'
   }
 ];
@@ -43,9 +44,12 @@ export default function Home() {
                 Explore our range of sustainable products crafted by rural and tribal communities.
               </p>
             </div>
-            <button className="hidden md:flex items-center text-sm font-bold text-green-600 hover:text-green-700 transition-colors">
+            <Link 
+              to="/products"
+              className="hidden md:flex items-center text-sm font-bold text-green-600 hover:text-green-700 transition-colors"
+            >
               View All Products <ArrowRight className="ml-2 w-4 h-4" />
-            </button>
+            </Link>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -58,26 +62,28 @@ export default function Home() {
                 viewport={{ once: true }}
                 className="group cursor-pointer"
               >
-                <div className="relative aspect-[4/3] overflow-hidden bg-black mb-6">
-                  <img 
-                    src={product.image} 
-                    alt={product.title}
-                    className="w-full h-full object-cover opacity-80 group-hover:scale-105 group-hover:opacity-100 transition-all duration-500"
-                    referrerPolicy="no-referrer"
-                  />
-                  <div className="absolute top-4 right-4 p-2 bg-white/10 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity">
-                    <ExternalLink className="w-4 h-4 text-white" />
+                <Link to="/products">
+                  <div className="relative aspect-[4/3] overflow-hidden bg-black mb-6">
+                    <img 
+                      src={product.image} 
+                      alt={product.title}
+                      className="w-full h-full object-cover opacity-80 group-hover:scale-105 group-hover:opacity-100 transition-all duration-500"
+                      referrerPolicy="no-referrer"
+                    />
+                    <div className="absolute top-4 right-4 p-2 bg-white/10 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity">
+                      <ExternalLink className="w-4 h-4 text-white" />
+                    </div>
                   </div>
-                </div>
-                <span className="text-xs font-bold text-green-600 uppercase tracking-widest mb-2 block">
-                  {product.category}
-                </span>
-                <h3 className="text-2xl font-bold mb-3 text-black group-hover:text-green-600 transition-colors">
-                  {product.title}
-                </h3>
-                <p className="text-black/60 text-sm leading-relaxed">
-                  {product.description}
-                </p>
+                  <span className="text-xs font-bold text-green-600 uppercase tracking-widest mb-2 block">
+                    {product.category}
+                  </span>
+                  <h3 className="text-2xl font-bold mb-3 text-black group-hover:text-green-600 transition-colors">
+                    {product.title}
+                  </h3>
+                  <p className="text-black/60 text-sm leading-relaxed">
+                    {product.description}
+                  </p>
+                </Link>
               </motion.div>
             ))}
           </div>
@@ -85,6 +91,8 @@ export default function Home() {
       </section>
 
       <WhyChoose />
+
+      <Services />
 
       <Testimonials />
 
@@ -100,9 +108,12 @@ export default function Home() {
           <p className="text-xl text-white/80 mb-12 max-w-2xl mx-auto">
             Support sustainable livelihoods and eco-friendly products. Together, we can build a better future for our forests and communities.
           </p>
-          <button className="bg-white text-green-600 px-10 py-5 text-sm font-bold rounded-none hover:bg-black hover:text-white transition-all">
-            Become a Partner
-          </button>
+          <Link 
+            to="/support"
+            className="bg-white text-green-600 px-10 py-5 text-sm font-bold rounded-none hover:bg-black hover:text-white transition-all inline-block"
+          >
+            Get Started
+          </Link>
         </div>
       </section>
     </div>
