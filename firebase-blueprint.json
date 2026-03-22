@@ -1,0 +1,132 @@
+{
+  "entities": {
+    "Inquiry": {
+      "title": "Inquiry",
+      "description": "A business inquiry from the contact form.",
+      "type": "object",
+      "properties": {
+        "fullName": {
+          "type": "string",
+          "description": "The full name of the person making the inquiry."
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "The email address of the person making the inquiry."
+        },
+        "companyName": {
+          "type": "string",
+          "description": "The company name of the person making the inquiry."
+        },
+        "requirement": {
+          "type": "string",
+          "description": "The specific requirements or message from the person."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp when the inquiry was created."
+        },
+        "status": {
+          "type": "string",
+          "enum": ["new", "reviewed", "contacted"],
+          "description": "The status of the inquiry."
+        }
+      },
+      "required": ["fullName", "email", "requirement", "createdAt", "status"]
+    },
+    "Project": {
+      "title": "Project",
+      "description": "A featured project or solution showcase.",
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "The title of the project."
+        },
+        "category": {
+          "type": "string",
+          "description": "The category of the project (e.g., Enterprise AI)."
+        },
+        "image": {
+          "type": "string",
+          "format": "uri",
+          "description": "The URL of the project's image."
+        },
+        "description": {
+          "type": "string",
+          "description": "A short description of the project."
+        },
+        "order": {
+          "type": "integer",
+          "description": "The display order of the project."
+        }
+      },
+      "required": ["title", "category", "image", "description", "order"]
+    },
+    "Testimonial": {
+      "title": "Testimonial",
+      "description": "A client testimonial.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the person giving the testimonial."
+        },
+        "role": {
+          "type": "string",
+          "description": "The role/title of the person."
+        },
+        "quote": {
+          "type": "string",
+          "description": "The testimonial text."
+        },
+        "order": {
+          "type": "integer",
+          "description": "The display order of the testimonial."
+        }
+      },
+      "required": ["name", "role", "quote", "order"]
+    },
+    "User": {
+      "title": "User",
+      "description": "A user profile for internal admin access.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "The unique Firebase Auth UID."
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "The user's email address."
+        },
+        "role": {
+          "type": "string",
+          "enum": ["admin", "client"],
+          "description": "The user's role."
+        }
+      },
+      "required": ["uid", "email", "role"]
+    }
+  },
+  "firestore": {
+    "/inquiries/{inquiryId}": {
+      "schema": "Inquiry",
+      "description": "Collection of business inquiries."
+    },
+    "/projects/{projectId}": {
+      "schema": "Project",
+      "description": "Collection of featured projects."
+    },
+    "/testimonials/{testimonialId}": {
+      "schema": "Testimonial",
+      "description": "Collection of client testimonials."
+    },
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Collection of user profiles."
+    }
+  }
+}
