@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
-import { Facebook, Twitter, Linkedin, Github, Mail, Phone, MapPin } from 'lucide-react';
+import { Facebook, Twitter, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
 
 export default function Footer() {
   return (
-    <footer className="bg-black text-white pt-20 pb-10 border-t border-white/10">
+    <footer className="bg-black text-white pt-20 pb-10 border-t border-white/10 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           <div className="space-y-6">
