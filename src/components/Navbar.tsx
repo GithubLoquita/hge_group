@@ -8,6 +8,7 @@ const navItems = [
   { name: 'Home', path: '/' },
   { name: 'Microfinance', path: '/business' },
   { name: 'Impact', path: '/services' },
+  { name: 'Support', path: '/support' },
   { name: 'Products', path: '/products' },
   { name: 'About', path: '/about' },
   { name: 'Careers', path: '/careers' },

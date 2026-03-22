@@ -14,6 +14,7 @@ import Contact from './pages/Contact';
 import Products from './pages/Products';
 import Careers from './pages/Careers';
 import BulkPricing from './pages/BulkPricing';
+import Support from './pages/Support';
 import LoadingScreen from './components/LoadingScreen';
 import { motion, AnimatePresence } from 'framer-motion';
 import React, { useState, useEffect, createContext, useContext } from 'react';
@@ -67,6 +68,7 @@ export default function App() {
                 <Route path="/about" element={<PageWrapper><About /></PageWrapper>} />
                 <Route path="/products" element={<PageWrapper><Products /></PageWrapper>} />
                 <Route path="/bulk-pricing" element={<PageWrapper><BulkPricing /></PageWrapper>} />
+                <Route path="/support" element={<PageWrapper><Support /></PageWrapper>} />
                 <Route path="/careers" element={<PageWrapper><Careers /></PageWrapper>} />
                 <Route path="/contact" element={<PageWrapper><Contact /></PageWrapper>} />
                 <Route path="*" element={<PageWrapper><Home /></PageWrapper>} />

@@ -109,6 +109,40 @@
         }
       },
       "required": ["uid", "email", "role"]
+    },
+    "SupportApplication": {
+      "title": "Support Application",
+      "description": "An application for production or enterprise support.",
+      "type": "object",
+      "properties": {
+        "fullName": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "phone": { "type": "string" },
+        "location": { "type": "string" },
+        "supportType": { "type": "string", "enum": ["Production Support", "Enterprise Partner"] },
+        "specificNeed": { "type": "string" },
+        "message": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "status": { "type": "string", "enum": ["pending", "reviewed", "approved", "rejected"] }
+      },
+      "required": ["fullName", "email", "phone", "location", "supportType", "specificNeed", "message", "createdAt", "status"]
+    },
+    "BulkInquiry": {
+      "title": "Bulk Inquiry",
+      "description": "An inquiry for bulk pricing.",
+      "type": "object",
+      "properties": {
+        "fullName": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "phone": { "type": "string" },
+        "organization": { "type": "string" },
+        "productType": { "type": "string" },
+        "quantity": { "type": "string" },
+        "message": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "status": { "type": "string", "enum": ["new", "reviewed", "contacted"] }
+      },
+      "required": ["fullName", "email", "phone", "productType", "quantity", "createdAt", "status"]
     }
   },
   "firestore": {
@@ -127,6 +161,14 @@
     "/users/{userId}": {
       "schema": "User",
       "description": "Collection of user profiles."
+    },
+    "/support_applications/{applicationId}": {
+      "schema": "SupportApplication",
+      "description": "Collection of support applications."
+    },
+    "/bulk_inquiries/{inquiryId}": {
+      "schema": "BulkInquiry",
+      "description": "Collection of bulk pricing inquiries."
     }
   }
 }

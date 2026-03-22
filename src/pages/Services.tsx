@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Leaf, Wallet, Truck, Users, Award, ShieldCheck } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import React from 'react';
 
 const services = [
@@ -102,12 +103,18 @@ export default function Services() {
             Join our movement toward sustainability and rural empowerment. Whether you are a producer, distributor, or customer, you can be part of the HGE story.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-black text-white px-10 py-4 font-bold hover:bg-green-600 hover:text-white transition-all">
-              Become a Partner
-            </button>
-            <button className="border border-black/10 text-black px-10 py-4 font-bold hover:bg-black hover:text-white transition-all">
+            <Link 
+              to="/support"
+              className="bg-black text-white px-10 py-4 font-bold hover:bg-green-600 hover:text-white transition-all inline-block"
+            >
+              Apply for Support
+            </Link>
+            <Link 
+              to="/products"
+              className="border border-black/10 text-black px-10 py-4 font-bold hover:bg-black hover:text-white transition-all inline-block"
+            >
               View Products
-            </button>
+            </Link>
           </div>
         </div>
       </section>

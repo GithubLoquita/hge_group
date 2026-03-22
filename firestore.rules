@@ -117,9 +117,48 @@ service cloud.firestore {
              data.role in ['admin', 'client'];
     }
 
+    function isValidSupportApplication(data) {
+      return hasRequiredFields(['fullName', 'email', 'phone', 'location', 'supportType', 'specificNeed', 'message', 'createdAt', 'status']) &&
+             hasOnlyAllowedFields(['fullName', 'email', 'phone', 'location', 'supportType', 'specificNeed', 'message', 'createdAt', 'status']) &&
+             data.fullName is string && data.fullName.size() <= 100 &&
+             isValidEmail(data.email) &&
+             data.phone is string && data.phone.size() <= 20 &&
+             data.location is string && data.location.size() <= 200 &&
+             data.supportType in ['Production Support', 'Enterprise Partner'] &&
+             data.specificNeed is string && data.specificNeed.size() <= 100 &&
+             data.message is string && data.message.size() <= 2000 &&
+             data.createdAt is timestamp &&
+             data.status in ['pending', 'reviewed', 'approved', 'rejected'];
+    }
+
+    function isValidBulkInquiry(data) {
+      return hasRequiredFields(['fullName', 'email', 'phone', 'productType', 'quantity', 'createdAt', 'status']) &&
+             hasOnlyAllowedFields(['fullName', 'email', 'phone', 'organization', 'productType', 'quantity', 'message', 'createdAt', 'status', 'type']) &&
+             data.fullName is string && data.fullName.size() <= 100 &&
+             isValidEmail(data.email) &&
+             data.phone is string && data.phone.size() <= 20 &&
+             data.productType is string && data.productType.size() <= 100 &&
+             data.quantity is string && data.quantity.size() <= 50 &&
+             data.createdAt is timestamp &&
+             data.status in ['new', 'reviewed', 'contacted'] &&
+             (!('organization' in data) || (data.organization is string && data.organization.size() <= 200)) &&
+             (!('message' in data) || (data.message is string && data.message.size() <= 2000)) &&
+             (!('type' in data) || (data.type is string && data.type == 'bulk_pricing'));
+    }
+
     // ===============================================================
     // Rules
     // ===============================================================
+
+    match /support_applications/{applicationId} {
+      allow create: if isValidSupportApplication(request.resource.data) && request.resource.data.status == 'pending';
+      allow read, update, delete: if isAdmin();
+    }
+
+    match /bulk_inquiries/{inquiryId} {
+      allow create: if isValidBulkInquiry(request.resource.data) && request.resource.data.status == 'new';
+      allow read, update, delete: if isAdmin();
+    }
 
     match /inquiries/{inquiryId} {
       allow create: if isValidInquiry(request.resource.data) && request.resource.data.status == 'new';
