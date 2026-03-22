@@ -76,7 +76,7 @@ export default function About() {
             >
               <div className="relative aspect-[4/5] bg-gray-200 rounded-[2rem] overflow-hidden shadow-2xl z-10">
                 <img 
-                  src="WhatsApp Image 2026-02-14 at 12.55.52 AM.jpeg" 
+                  src="https://res.cloudinary.com/drh369n9m/image/upload/v1774207578/WhatsApp_Image_2026-02-14_at_12.55.52_AM_kstau4.jpg" 
                   alt="Sandip Hembram - Founder of HGE Salpata" 
                   className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
                   referrerPolicy="no-referrer"
