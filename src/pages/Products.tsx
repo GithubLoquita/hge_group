@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { ShoppingBag, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const products = [
   {
@@ -8,7 +9,7 @@ const products = [
     size: '12 inches',
     price: '₹5.00 / piece',
     // Replace with your actual product image URL
-    image: 'https://images.unsplash.com/photo-1610348725531-843dff563e2c?q=80&w=1000&auto=format&fit=crop',
+    image: 'https://res.cloudinary.com/drh369n9m/image/upload/v1774207807/WhatsApp_Image_2026-03-23_at_12.22.16_AM_fvm3sx.jpg',
     description: 'Traditional round plate handcrafted from premium sal leaves. 100% natural and biodegradable.'
   },
   {
@@ -16,7 +17,7 @@ const products = [
     name: 'Sal Leaf Dona (Bowl)',
     size: '6 inches',
     price: '₹2.00 / piece',
-    image: 'https://images.unsplash.com/photo-1591871937573-74dbba515c4c?q=80&w=1000&auto=format&fit=crop',
+    image: 'https://res.cloudinary.com/drh369n9m/image/upload/v1774207807/WhatsApp_Image_2026-03-23_at_12.22.16_AM_fvm3sx.jpg',
     description: 'Deep-set bowls perfect for serving liquid items, snacks, and traditional desserts.'
   },
   {
@@ -24,7 +25,7 @@ const products = [
     name: 'Medium Dining Plate',
     size: '10 inches',
     price: '₹4.00 / piece',
-    image: 'https://images.unsplash.com/photo-1584273143981-43c2910f33cc?q=80&w=1000&auto=format&fit=crop',
+    image: 'https://res.cloudinary.com/drh369n9m/image/upload/v1774207807/WhatsApp_Image_2026-03-23_at_12.22.16_AM_fvm3sx.jpg',
     description: 'Sturdy medium-sized plates ideal for breakfast, snacks, or smaller meal portions.'
   },
   {
@@ -32,7 +33,7 @@ const products = [
     name: 'Rectangular Eco-Tray',
     size: '14x10 inches',
     price: '₹8.00 / piece',
-    image: 'https://images.unsplash.com/photo-1590005354167-6da97870c757?q=80&w=1000&auto=format&fit=crop',
+    image: 'https://res.cloudinary.com/drh369n9m/image/upload/v1774207807/WhatsApp_Image_2026-03-23_at_12.22.16_AM_fvm3sx.jpg',
     description: 'Large rectangular trays designed for catering, buffets, and corporate events.'
   },
   {
@@ -40,7 +41,7 @@ const products = [
     name: 'Premium Polished Plate',
     size: '12 inches',
     price: '₹10.00 / piece',
-    image: 'https://images.unsplash.com/photo-1516684732162-798a0062be99?q=80&w=1000&auto=format&fit=crop',
+    image: 'https://res.cloudinary.com/drh369n9m/image/upload/v1774207807/WhatsApp_Image_2026-03-23_at_12.22.16_AM_fvm3sx.jpg',
     description: 'Extra-sturdy, heat-pressed plates with a smooth finish for premium dining experiences.'
   },
   {
@@ -48,7 +49,7 @@ const products = [
     name: 'Custom Event Pack',
     size: 'Mixed',
     price: 'Contact for Quote',
-    image: 'https://images.unsplash.com/photo-1467453274507-643d38a0ca27?q=80&w=1000&auto=format&fit=crop',
+    image: 'https://res.cloudinary.com/drh369n9m/image/upload/v1774207807/WhatsApp_Image_2026-03-23_at_12.22.16_AM_fvm3sx.jpg',
     description: 'Tailored sets including plates, bowls, and cutlery for weddings and large gatherings.'
   }
 ];
@@ -108,9 +109,9 @@ export default function Products() {
                   <p className="text-black/60 text-sm leading-relaxed">
                     {product.description}
                   </p>
-                  <button className="flex items-center text-sm font-bold text-black hover:text-green-600 transition-colors pt-2">
+                  <Link to="/bulk-pricing" className="flex items-center text-sm font-bold text-black hover:text-green-600 transition-colors pt-2">
                     Inquire Now <ArrowRight className="ml-2 w-4 h-4" />
-                  </button>
+                  </Link>
                 </div>
               </motion.div>
             ))}
@@ -128,9 +129,12 @@ export default function Products() {
           <p className="text-black/60 max-w-2xl mx-auto text-lg mb-10">
             Planning a large event or want to become a distributor? We offer special pricing and customized packaging for bulk orders.
           </p>
-          <button className="bg-black text-white px-10 py-5 text-sm font-bold rounded-none hover:bg-green-600 transition-all">
+          <Link 
+            to="/bulk-pricing"
+            className="inline-block bg-black text-white px-10 py-5 text-sm font-bold rounded-none hover:bg-green-600 transition-all"
+          >
             Contact for Bulk Pricing
-          </button>
+          </Link>
         </div>
       </section>
     </div>
