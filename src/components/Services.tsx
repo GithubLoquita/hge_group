@@ -1,31 +1,36 @@
 import { motion } from 'framer-motion';
-import { Cpu, Code, Cloud, Shield, BarChart3 } from 'lucide-react';
+import { Leaf, Wallet, Truck, Users, Award, ShieldCheck } from 'lucide-react';
 
 const services = [
   {
-    title: 'AI Solutions',
-    description: 'Custom machine learning models and generative AI integration for business automation.',
-    icon: Cpu,
+    title: 'Eco-Product Manufacturing',
+    description: 'Transforming traditional sal leaves into modern, biodegradable plates and packaging solutions.',
+    icon: Leaf,
   },
   {
-    title: 'Software Development',
-    description: 'High-performance web and mobile applications built with modern frameworks.',
-    icon: Code,
+    title: 'Microfinance Support',
+    description: 'Providing small loans and financial guidance to rural producers and tribal communities.',
+    icon: Wallet,
   },
   {
-    title: 'Cloud & DevOps',
-    description: 'Scalable cloud infrastructure and automated deployment pipelines.',
-    icon: Cloud,
+    title: 'Supply Chain Management',
+    description: 'Building a robust network from forest collection to global market distribution.',
+    icon: Truck,
   },
   {
-    title: 'Cybersecurity',
-    description: 'Enterprise-grade security audits and threat protection systems.',
-    icon: Shield,
+    title: 'Community Empowerment',
+    description: 'Transforming daily wage workers into independent micro-entrepreneurs and business owners.',
+    icon: Users,
   },
   {
-    title: 'Data Analytics',
-    description: 'Transform raw data into actionable insights with advanced visualization.',
-    icon: BarChart3,
+    title: 'Quality Certification',
+    description: 'Ensuring every product meets international standards for hygiene and environmental safety.',
+    icon: Award,
+  },
+  {
+    title: 'Sustainable Growth',
+    description: 'Promoting eco-friendly alternatives to plastic while ensuring stable grassroots income.',
+    icon: ShieldCheck,
   },
 ];
 
@@ -36,7 +41,7 @@ export default function Services() {
         <div className="mb-16">
           <h2 className="text-3xl lg:text-5xl font-bold tracking-tighter mb-4">Our Services</h2>
           <p className="text-white/60 max-w-2xl">
-            Comprehensive technology solutions designed to scale with your business needs.
+            We combine traditional knowledge with modern systems to build a sustainable ecosystem for rural producers.
           </p>
         </div>
 
@@ -50,7 +55,7 @@ export default function Services() {
               viewport={{ once: true }}
               className="p-8 bg-black hover:bg-white/5 transition-colors group cursor-pointer"
             >
-              <service.icon className="w-10 h-10 text-blue-500 mb-6 group-hover:scale-110 transition-transform" />
+              <service.icon className="w-10 h-10 text-green-600 mb-6 group-hover:scale-110 transition-transform" />
               <h3 className="text-xl font-bold mb-3">{service.title}</h3>
               <p className="text-white/60 text-sm leading-relaxed">
                 {service.description}

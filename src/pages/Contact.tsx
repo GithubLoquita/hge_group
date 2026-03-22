@@ -85,8 +85,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <h4 className="font-bold text-black mb-1">Email Us</h4>
-                    <p className="text-black/60">contact@hgesalpata.com</p>
-                    <p className="text-black/60 text-sm">support@hgesalpata.com</p>
+                    <p className="text-black/60">hembramgroupofficial@gmail.com</p>
                   </div>
                 </div>
 
@@ -96,7 +95,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <h4 className="font-bold text-black mb-1">Call Us</h4>
-                    <p className="text-black/60">+91 000 000 0000</p>
+                    <p className="text-black/60">+91 9832382762</p>
                     <p className="text-black/60 text-sm">Mon - Sat, 9am - 6pm IST</p>
                   </div>
                 </div>
@@ -107,8 +106,8 @@ export default function Contact() {
                   </div>
                   <div>
                     <h4 className="font-bold text-black mb-1">Visit Us</h4>
-                    <p className="text-black/60">Rural Empowerment Hub, Innovation Block</p>
-                    <p className="text-black/60 text-sm">Jharkhand, India</p>
+                    <p className="text-black/60">Raipur, Bankura</p>
+                    <p className="text-black/60 text-sm">West Bengal, India</p>
                   </div>
                 </div>
               </div>
@@ -116,7 +115,7 @@ export default function Contact() {
               {/* Map Placeholder */}
               <div className="h-64 bg-gray-100 rounded-2xl border border-black/5 overflow-hidden relative">
                 <div className="absolute inset-0 flex items-center justify-center text-black/20 font-bold uppercase tracking-widest">
-                  Jharkhand Hub Location
+                  Raipur, Bankura Location
                 </div>
               </div>
             </motion.div>

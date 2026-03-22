@@ -46,15 +46,15 @@ export default function Footer() {
             <ul className="space-y-4 text-sm text-white/50">
               <li className="flex items-center gap-3">
                 <Mail size={16} className="text-green-500" />
-                <span>contact@hgesalpata.com</span>
+                <span>hembramgroupofficial@gmail.com</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone size={16} className="text-green-500" />
-                <span>+91 000 000 0000</span>
+                <span>+91 9832382762</span>
               </li>
               <li className="flex items-center gap-3">
                 <MapPin size={16} className="text-green-500" />
-                <span>Rural Empowerment Hub, Jharkhand, India</span>
+                <span>Raipur, Bankura, West Bengal, India</span>
               </li>
             </ul>
           </div>
